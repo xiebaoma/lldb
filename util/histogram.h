@@ -1,7 +1,7 @@
 // xiebaoma
 
-#ifndef STORAGE_LEVELDB_UTIL_HISTOGRAM_H_
-#define STORAGE_LEVELDB_UTIL_HISTOGRAM_H_
+#ifndef STORAGE_LLDB_UTIL_HISTOGRAM_H_
+#define STORAGE_LLDB_UTIL_HISTOGRAM_H_
 
 #include <string>
 
@@ -37,6 +37,6 @@ class Histogram {
   double buckets_[kNumBuckets];
 };
 
-}  // namespace leveldb
+}  // namespace lldb
 
-#endif  // STORAGE_LEVELDB_UTIL_HISTOGRAM_H_
+#endif  // STORAGE_LLDB_UTIL_HISTOGRAM_H_

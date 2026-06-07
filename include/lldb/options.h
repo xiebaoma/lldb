@@ -1,7 +1,7 @@
 // xiebaoma
 
-#ifndef STORAGE_LEVELDB_INCLUDE_OPTIONS_H_
-#define STORAGE_LEVELDB_INCLUDE_OPTIONS_H_
+#ifndef STORAGE_LLDB_INCLUDE_OPTIONS_H_
+#define STORAGE_LLDB_INCLUDE_OPTIONS_H_
 
 #include <cstddef>
 
@@ -86,8 +86,6 @@ struct Options {
   // Control over blocks (user data is stored in a set of blocks, and
   // a block is the unit of reading from disk).
 
-  // If non-null, use the specified cache for blocks.
-  // If null, leveldb will automatically create and use an 8MB internal cache.
   Cache* block_cache = nullptr;
 
   // Approximate size of user data packed per block.  Note that the
@@ -101,14 +99,6 @@ struct Options {
   // leave this parameter alone.
   int block_restart_interval = 16;
 
-  // Leveldb will write up to this amount of bytes to a file before
-  // switching to a new one.
-  // Most clients should leave this parameter alone.  However if your
-  // filesystem is more efficient with larger files, you could
-  // consider increasing the value.  The downside will be longer
-  // compactions and hence longer latency/performance hiccups.
-  // Another reason to increase this parameter might be when you are
-  // initially populating a large database.
   size_t max_file_size = 2 * 1024 * 1024;
 
   // Compress blocks using the specified compression algorithm.  This
@@ -181,6 +171,6 @@ struct WriteOptions {
   bool sync = false;
 };
 
-}  // namespace leveldb
+}  // namespace lldb
 
-#endif  // STORAGE_LEVELDB_INCLUDE_OPTIONS_H_
+#endif  // STORAGE_LLDB_INCLUDE_OPTIONS_H_

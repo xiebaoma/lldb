@@ -52,6 +52,28 @@ add_library(bloom STATIC util/bloom.cpp)
 target_link_libraries(bloom PUBLIC filter_policy hash)
 target_include_directories(bloom PUBLIC ${CMAKE_SOURCE_DIR})
 
+add_library(iterator STATIC table/iterator.cpp)
+target_include_directories(iterator PUBLIC ${CMAKE_SOURCE_DIR}/include)
+
+add_library(memenv STATIC helper/memenv/memenv.cpp)
+target_include_directories(memenv PUBLIC ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(memenv PUBLIC env status)
+
+add_library(random INTERFACE)
+target_include_directories(random INTERFACE ${CMAKE_SOURCE_DIR})
+
+add_library(skiplist INTERFACE)
+target_include_directories(skiplist INTERFACE ${CMAKE_SOURCE_DIR})
+target_link_libraries(skiplist INTERFACE arena random)
+
+add_library(dbformat STATIC db/dbformat.cpp)
+target_include_directories(dbformat PUBLIC ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(dbformat PUBLIC coding comparator filter_policy logging)
+
+add_library(merger STATIC table/merger.cpp)
+target_include_directories(merger PUBLIC ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(merger PUBLIC iterator comparator status)
+
 add_library(options STATIC util/options.cpp)
 target_link_libraries(options PUBLIC comparator env_posix)
 target_include_directories(options PUBLIC ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include)

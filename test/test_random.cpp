@@ -4,7 +4,7 @@
 #include <map>
 #include <set>
 
-#include "util/random.cpp"
+#include "util/random.h"
 
 namespace lldb {
 namespace {
