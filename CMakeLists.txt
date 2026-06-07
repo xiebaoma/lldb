@@ -26,5 +26,9 @@ add_library(bloom STATIC util/bloom.cpp)
 target_link_libraries(bloom PUBLIC filter_policy hash)
 target_include_directories(bloom PUBLIC ${CMAKE_SOURCE_DIR})
 
+add_library(cache STATIC util/cache.cpp)
+target_link_libraries(cache PUBLIC hash)
+target_include_directories(cache PUBLIC ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include)
+
 enable_testing()
 add_subdirectory(test)

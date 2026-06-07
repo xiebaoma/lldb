@@ -5,6 +5,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <mutex>
 
 namespace lldb {
 namespace port {
@@ -18,6 +19,31 @@ inline uint32_t AcceleratedCRC32C(uint32_t crc, const char* buf, size_t size) {
   (void)size;
   return 0;  // No hardware acceleration on this platform.
 }
+
+class Mutex{
+  public:
+    Mutex() = default;
+    ~Mutex() = default;
+
+    Mutex(const Mutex&) = delete;
+    Mutex& operator=(const Mutex&) = delete;
+
+    void Lock(){
+      mu_.lock();
+    }
+
+    void Unlock(){
+      mu_.unlock();
+    }
+
+    // TODO 
+    void AssertHeld(){
+      return;
+    }
+
+  private:
+    std::mutex mu_;
+};
 
 }  // namespace port
 }  // namespace lldb
