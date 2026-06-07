@@ -3,9 +3,11 @@
 #ifndef STORAGE_LLDB_PORT_PORT_H_
 #define STORAGE_LLDB_PORT_PORT_H_
 
+#include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <mutex>
+#include <condition_variable>
 
 namespace lldb {
 namespace port {
@@ -42,7 +44,29 @@ class Mutex{
     }
 
   private:
+    friend class CondVar;
     std::mutex mu_;
+};
+
+class CondVar {
+  public:
+    explicit CondVar(Mutex* mu) : mu_(mu) { assert(mu != nullptr); }
+    ~CondVar() = default;
+
+    CondVar(const CondVar&) = delete;
+    CondVar& operator=(const CondVar&) = delete;
+
+    void Wait() {
+      std::unique_lock<std::mutex> lock(mu_->mu_, std::adopt_lock);
+      cv_.wait(lock);
+      lock.release();
+    }
+    void Signal() { cv_.notify_one(); }
+    void SignalAll() { cv_.notify_all(); }
+
+ private:
+  std::condition_variable cv_;
+  Mutex* const mu_;
 };
 
 }  // namespace port
