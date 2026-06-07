@@ -19,16 +19,19 @@ add_library(crc32c STATIC util/crc32c.cpp)
 target_link_libraries(crc32c PUBLIC coding)
 target_include_directories(crc32c PUBLIC ${CMAKE_SOURCE_DIR})
 
-add_library(filter_policy STATIC include/lldb/filter_policy.cpp)
-target_include_directories(filter_policy PUBLIC ${CMAKE_SOURCE_DIR}/include)
-
 add_library(bloom STATIC util/bloom.cpp)
-target_link_libraries(bloom PUBLIC filter_policy hash)
+target_link_libraries(bloom PUBLIC hash)
 target_include_directories(bloom PUBLIC ${CMAKE_SOURCE_DIR})
 
 add_library(cache STATIC util/cache.cpp)
 target_link_libraries(cache PUBLIC hash)
 target_include_directories(cache PUBLIC ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include)
+
+add_library(logging STATIC util/logging.cpp)
+target_include_directories(logging PUBLIC ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include)
+
+add_library(comparator STATIC util/comparator.cpp)
+target_include_directories(comparator PUBLIC ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include)
 
 enable_testing()
 add_subdirectory(test)
